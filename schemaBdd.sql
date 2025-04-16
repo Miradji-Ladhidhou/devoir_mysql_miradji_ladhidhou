@@ -61,8 +61,8 @@ CREATE TABLE IF NOT EXISTS comprend(
     id_foccacia INT NOT NULL,
     quantite INT NOT NULL,
     PRIMARY KEY (id_ingredient, id_foccacia),
-    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient),
-    FOREIGN KEY (id_foccacia) REFERENCES foccacia(id_foccacia)
+    FOREIGN KEY (id_foccacia) REFERENCES foccacia(id_foccacia),
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- creation de la table achat
