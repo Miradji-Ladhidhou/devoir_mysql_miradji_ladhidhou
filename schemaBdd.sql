@@ -28,11 +28,31 @@ CREATE TABLE IF NOT EXISTS ingredient(
     nom VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- creation de la table composition
+DROP TABLE IF EXISTS comprend;
+CREATE TABLE IF NOT EXISTS comprend(
+    id_foccacia INT NOT NULL,
+    id_ingredient INT NOT NULL,
+    quantite INT NOT NULL,
+    PRIMARY KEY (id_foccacia, id_ingredient),
+    FOREIGN KEY (id_foccacia) REFERENCES foccacia(id_foccacia),
+    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- creation de la table marque des boissons
 DROP TABLE IF EXISTS marque;
 CREATE TABLE IF NOT EXISTS marque(
     id_marque INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- creation de la table boisson
+DROP TABLE IF EXISTS boisson;
+CREATE TABLE IF NOT EXISTS boisson(
+    id_boisson INT PRIMARY KEY AUTO_INCREMENT,
+    nom VARCHAR(50) NOT NULL,
+    id_marque INT NOT NULL,
+    FOREIGN KEY (id_marque) REFERENCES marque(id_marque)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- creation de la table menu 
@@ -45,37 +65,6 @@ CREATE TABLE IF NOT EXISTS menu(
     FOREIGN KEY (id_foccacia) REFERENCES foccacia(id_foccacia)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- creation de la table boisson
-DROP TABLE IF EXISTS boisson;
-CREATE TABLE IF NOT EXISTS boisson(
-    id_boisson INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50) NOT NULL,
-    id_marque INT NOT NULL,
-    FOREIGN KEY (id_marque) REFERENCES marque(id_marque)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- creation de la table composition
-DROP TABLE IF EXISTS comprend;
-CREATE TABLE IF NOT EXISTS comprend(
-    id_ingredient INT NOT NULL,
-    id_foccacia INT NOT NULL,
-    quantite INT NOT NULL,
-    PRIMARY KEY (id_ingredient, id_foccacia),
-    FOREIGN KEY (id_foccacia) REFERENCES foccacia(id_foccacia),
-    FOREIGN KEY (id_ingredient) REFERENCES ingredient(id_ingredient)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- creation de la table achat
-DROP TABLE IF EXISTS achete;
-CREATE TABLE IF NOT EXISTS achete(
-    id_client INT NOT NULL,
-    id_menu INT NOT NULL,
-    date_achat DATE NOT NULL,
-    PRIMARY KEY (id_client, id_menu),
-    FOREIGN KEY (id_client) REFERENCES client(id_client),
-    FOREIGN KEY (id_menu) REFERENCES menu(id_menu)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 -- creation de la table composition du menu
 DROP TABLE IF EXISTS contient;
 CREATE TABLE IF NOT EXISTS contient(
@@ -85,3 +74,17 @@ CREATE TABLE IF NOT EXISTS contient(
     FOREIGN KEY (id_menu) REFERENCES menu(id_menu),
     FOREIGN KEY (id_boisson) REFERENCES boisson(id_boisson)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- creation de la table achat
+DROP TABLE IF EXISTS achete;
+CREATE TABLE IF NOT EXISTS achete(
+    id_client INT NOT NULL,
+    id_menu INT NOT NULL,
+    id_boisson INT NOT NULL,
+    date_achat DATE DEFAULT CURRENT_DATE NOT NULL,
+    PRIMARY KEY (id_client, id_menu),
+    FOREIGN KEY (id_client) REFERENCES client(id_client),
+    FOREIGN KEY (id_menu) REFERENCES menu(id_menu),
+    FOREIGN KEY (id_boisson) REFERENCES boisson(id_boisson)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
