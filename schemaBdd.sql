@@ -10,14 +10,14 @@ CREATE TABLE IF NOT EXISTS client(
     id_client INT PRIMARY KEY AUTO_INCREMENT,
     nom VARCHAR(50) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
-    code_postal INT NOT NULL UNIQUE
+    code_postal INT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- creation de la table foccacia
 DROP TABLE IF EXISTS foccacia;
 CREATE TABLE IF NOT EXISTS foccacia(
     id_foccacia INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50) NOT NULL,
+    nom VARCHAR(50) NOT NULL UNIQUE,
     prix DECIMAL(5,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
