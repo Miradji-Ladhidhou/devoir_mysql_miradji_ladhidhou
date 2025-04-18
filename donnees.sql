@@ -71,6 +71,7 @@ INSERT INTO comprend (id_foccacia, id_ingredient, quantite) VALUES
 (3, 5, 200),
 (3, 22, 50),
 (3, 9, 20),
+(3, 1, 2),
 (3, 7, 40),
 (3, 18, 50),
 (3, 20, 1),
