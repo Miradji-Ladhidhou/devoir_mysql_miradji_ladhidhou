@@ -200,13 +200,3 @@ INSERT INTO achete (id_client, id_menu, id_boisson) VALUES
 (1, 3, 5),
 (2, 5, 5),
 (3, 8, 3);
-
-
-
-
-
-
-
-
-
-

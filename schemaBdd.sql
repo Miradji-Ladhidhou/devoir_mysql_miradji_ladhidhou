@@ -25,10 +25,10 @@ CREATE TABLE IF NOT EXISTS foccacia(
 DROP TABLE IF EXISTS ingredient;
 CREATE TABLE IF NOT EXISTS ingredient(
     id_ingredient INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50) NOT NULL
+    nom VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- creation de la table composition
+-- creation de la table composition_foccacia
 DROP TABLE IF EXISTS comprend;
 CREATE TABLE IF NOT EXISTS comprend(
     id_foccacia INT NOT NULL,
@@ -43,14 +43,14 @@ CREATE TABLE IF NOT EXISTS comprend(
 DROP TABLE IF EXISTS marque;
 CREATE TABLE IF NOT EXISTS marque(
     id_marque INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50) NOT NULL
+    nom VARCHAR(50) NOT NULL UNIQUE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- creation de la table boisson
 DROP TABLE IF EXISTS boisson;
 CREATE TABLE IF NOT EXISTS boisson(
     id_boisson INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50) NOT NULL,
+    nom VARCHAR(50) NOT NULL UNIQUE,
     id_marque INT NOT NULL,
     FOREIGN KEY (id_marque) REFERENCES marque(id_marque)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS boisson(
 DROP TABLE IF EXISTS menu;
 CREATE TABLE IF NOT EXISTS menu(
     id_menu INT PRIMARY KEY AUTO_INCREMENT,
-    nom VARCHAR(50) NOT NULL,
+    nom VARCHAR(50) NOT NULL UNIQUE,
     prix DECIMAL(5,2) NOT NULL,
     id_foccacia INT NOT NULL,
     FOREIGN KEY (id_foccacia) REFERENCES foccacia(id_foccacia)
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS achete(
     id_menu INT NOT NULL,
     id_boisson INT NOT NULL,
     date_achat DATE DEFAULT CURRENT_DATE NOT NULL,
-    PRIMARY KEY (id_client, id_menu),
+    PRIMARY KEY (id_client, id_menu, date_achat),
     FOREIGN KEY (id_client) REFERENCES client(id_client),
     FOREIGN KEY (id_menu) REFERENCES menu(id_menu),
     FOREIGN KEY (id_boisson) REFERENCES boisson(id_boisson)
