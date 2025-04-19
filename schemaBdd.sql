@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS achete(
     id_client INT NOT NULL,
     id_menu INT NOT NULL,
     id_boisson INT NOT NULL,
-    date_achat DATE DEFAULT CURRENT_DATE NOT NULL,
+    date_achat TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id_client, id_menu, date_achat),
     FOREIGN KEY (id_client) REFERENCES client(id_client),
     FOREIGN KEY (id_menu) REFERENCES menu(id_menu),
